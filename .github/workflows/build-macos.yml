@@ -42,7 +42,7 @@ jobs:
 
       # 7️⃣ Uploader le fichier DMG en artifact
       - name: Upload macOS DMG
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macOS-app
           path: src-tauri/target/release/bundle/dmg/*.dmg
