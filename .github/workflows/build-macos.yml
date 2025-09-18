@@ -1,0 +1,48 @@
+name: Build macOS App
+
+# Déclenche le workflow à chaque push sur main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      # 1️⃣ Récupérer le code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3️⃣ Installer Rust pour Tauri
+      - name: Install Rust
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          source $HOME/.cargo/env
+          rustup update
+
+      # 4️⃣ Installer les dépendances Node
+      - name: Install dependencies
+        run: npm install
+
+      # 5️⃣ Build l’app Next.js (production)
+      - name: Build Next.js
+        run: npm run build
+
+      # 6️⃣ Build Tauri app macOS
+      - name: Build Tauri app
+        run: npm run tauri build
+
+      # 7️⃣ Uploader le fichier DMG en artifact
+      - name: Upload macOS DMG
+        uses: actions/upload-artifact@v3
+        with:
+          name: macOS-app
+          path: src-tauri/target/release/bundle/dmg/*.dmg
