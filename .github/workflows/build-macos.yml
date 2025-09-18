@@ -35,6 +35,12 @@ jobs:
       # 5️⃣ Build l’app Next.js (production)
       - name: Build Next.js
         run: npm run build
+         # 6️⃣ Configurer l'architecture universelle pour Tauri
+      - name: Configure Tauri macOS Universal
+        run: |
+          # Ajoute l'arch universelle dans tauri.conf.json
+          sed -i '' 's/"arch": \[.*\]/"arch": ["x86_64","aarch64"]/' src-tauri/tauri.conf.json
+
 
       # 6️⃣ Build Tauri app macOS
       - name: Build Tauri app
