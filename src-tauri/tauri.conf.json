@@ -5,7 +5,7 @@
 "version": "1.2.2",
 
   "build": {
-    "frontendDist": "../out",
+    "frontendDist": "../.next",
     "devUrl": "http://localhost:3000",
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build"
