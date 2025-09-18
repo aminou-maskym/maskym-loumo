@@ -38,7 +38,7 @@ jobs:
 
       # 6️⃣ Build Tauri app macOS
       - name: Build Tauri app
-        run: npm run tauri build
+        run: npx tauri build
 
       # 7️⃣ Uploader le fichier DMG en artifact
       - name: Upload macOS DMG
